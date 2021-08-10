@@ -1,23 +1,33 @@
 const dotenv = require('dotenv');
-dotenv.config()
-const cors = require('cors')
-const mongoDB = require('mongodb').MongoClient
-const express = require('express')
-const app = express()
-const mongoes = require('./DB')
-mongoes.on('error',()=>{console.log("")})
-const PORT = process.env.PORT
-app.listen(PORT||8080)
-const {getAllStudents,postStudent} = require('./controlers/studentControlers')
-const urlMongo = process.env.CONNECTION_URL
-const studentRouter = require('./rauting/rautingStudents')
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use('/dbStudent',studentRouter)
+dotenv.config();
+const cors = require('cors');
+const express = require('express');
+const app = express();
+const connection = require('./DB');
+const path = require('path');
+connection.on('error', () => {
+  console.log('');
+});
+const PORT = process.env.PORT;
+const studentRouter = require('./rauting/rautingStudents');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+app.listen(PORT || 8000);
+
+app.use('/api/students', studentRouter);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(_dirname, '../client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
 
 // function stam(req,res){
-    
+
 //     return mongoDB.connect(urlMongo,(err,result)=>{
 //         if(err)throw err;
 //         const collections = result.db('dbSchool').collection('students')
@@ -28,7 +38,6 @@ app.use('/dbStudent',studentRouter)
 //         })
 //     })
 // }
-app.use(express.json())
 
 // app.get('/students',getAllStudents)
 // app.post('/students',postStudent)
