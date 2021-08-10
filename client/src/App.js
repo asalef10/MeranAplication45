@@ -19,10 +19,10 @@ function App() {
     });
   }
   function show() {
-    Axios.get('http://localhost:8080/dbStudent/').then((response)=>{return console.log(response)}) 
+    Axios.get('https://asalef-alena.herokuapp.com/api/students').then((response)=>{return console.log(response)}) 
   }
   function upDate() {
-    Axios.put(`http://localhost:8080/dbStudent/${idToUpDate}`, {
+    Axios.put(`https://asalef-alena.herokuapp.com/api/students/${idToUpDate}`, {
       student: {
         firstName: firstNameS,
         lastName: lastNameS,
