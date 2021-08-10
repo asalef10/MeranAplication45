@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.listen(PORT || 8000);
+app.listen(8000);
 
 app.use('/api/students', studentRouter);
 
