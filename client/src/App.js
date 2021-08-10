@@ -9,7 +9,7 @@ function App() {
   const [ageS, setAge] = useState(0);
   const [idToUpDate, setIdToUpDate] = useState("");
   function send() {
-    Axios.post('http://localhost:8080/dbStudent/', {
+    Axios.post('https://asalef-alena.herokuapp.com/api/students', {
       student: {
         firstName: firstNameS,
         lastName: lastNameS,
